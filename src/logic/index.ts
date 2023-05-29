@@ -1,4 +1,5 @@
 import ColorThief from "colorthief";
+import html2canvas from "html2canvas";
 
 export const getDominantColor = (img: HTMLImageElement) => {
   const ct = new ColorThief();
@@ -6,37 +7,25 @@ export const getDominantColor = (img: HTMLImageElement) => {
   return { array: rgb, rgb: `rgb(${rgb.join(",")})` };
 };
 
-function padZero(str: string | number, len?: number) {
-  len = len || 2;
-  const zeros = new Array(len).join("0");
-  return (zeros + str).slice(-len);
-}
+export function getInvertedColor(rgb: string): string {
+  // Remove whitespace and convert the RGB string to an array of values
+  const rgbArray = rgb.replace(/\s/g, "").split(",");
 
-export function invertColor(hex: string, bw?: boolean) {
-  if (hex.indexOf("#") === 0) {
-    hex = hex.slice(1);
-  }
+  // Extract the red, green, and blue values from the RGB array
+  const red = parseInt(rgbArray[0]);
+  const green = parseInt(rgbArray[1]);
+  const blue = parseInt(rgbArray[2]);
 
-  if (hex.length === 3) {
-    hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
-  }
-  if (hex.length !== 6) {
-    throw new Error("Invalid HEX color.");
-  }
+  // Calculate the inverted color values
+  const invertedRed = 255 - red;
+  const invertedGreen = 255 - green;
+  const invertedBlue = 255 - blue;
 
-  let r = String(parseInt(hex.slice(0, 2), 16));
-  let g = String(parseInt(hex.slice(2, 4), 16));
-  let b = String(parseInt(hex.slice(4, 6), 16));
+  // Combine the inverted color values into a single RGB color string
+  const invertedColor = `rgb(${invertedRed}, ${invertedGreen}, ${invertedBlue})`;
 
-  if (bw) {
-    return Number(r) * 0.299 + Number(g) * 0.587 + Number(b) * 0.114 > 186 ? "#000000" : "#FFFFFF";
-  }
-
-  r = (255 - Number(r)).toString(16);
-  g = (255 - Number(g)).toString(16);
-  b = (255 - Number(b)).toString(16);
-
-  return "#" + padZero(r) + padZero(g) + padZero(b);
+  // Return the inverted color
+  return invertedColor;
 }
 
 export function getFaderColor(rgb: string, percentage: number): string {
@@ -58,4 +47,17 @@ export function getFaderColor(rgb: string, percentage: number): string {
 
   // Return the fade color
   return fadeColor;
+}
+
+export function downloadImage(element: HTMLElement) {
+  html2canvas(element)
+    .then((canvas) => {
+      const imageUrl = canvas.toDataURL();
+
+      const link = document.createElement("a");
+      link.href = imageUrl;
+      link.download = "story.png";
+      link.click();
+    })
+    .catch((e) => console.log(e));
 }

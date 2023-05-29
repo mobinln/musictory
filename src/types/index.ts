@@ -1,6 +1,6 @@
 export type musicType = {
   artist: string;
-  album: string;
+  name: string;
   text: string;
-  cover: File;
+  image: string;
 };
