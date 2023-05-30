@@ -39,7 +39,7 @@ export default function Image({
         className="rounded w-12 h-auto object-cover mr-4"
         onLoad={onLoad}
         onClick={() => inputRef.current?.click()}
-        style={{ width }}
+        style={{ width, maxHeight: "200px" }}
       />
       {!preview && <Button onClick={() => inputRef.current?.click()}>Select</Button>}
     </>
