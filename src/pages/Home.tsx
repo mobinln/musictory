@@ -1,13 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { downloadImage } from "logic";
 
 import MusicCard from "components/MusicCard";
 import { useAppState } from "logic/StateContext/hooks";
 
 export default function HomePage() {
-  const { music, color } = useAppState();
+  const { music, takeShot, setTakeShot } = useAppState();
   const previewRef = useRef<HTMLDivElement | null>(null);
-  const [takeShot, setTakeShot] = useState(false);
 
   useEffect(() => {
     let t: ReturnType<typeof setTimeout>;
@@ -21,14 +20,10 @@ export default function HomePage() {
     }
 
     return () => clearTimeout(t);
-  }, [takeShot]);
+  }, [setTakeShot, takeShot]);
 
   return (
-    <div
-      className="relative z-10 h-screen w-screen flex justify-center items-center"
-      style={{ backgroundColor: color?.rgb }}
-      ref={previewRef}
-    >
+    <div className="relative z-10 h-screen w-screen flex justify-center items-center" ref={previewRef}>
       <MusicCard music={music} />
     </div>
   );

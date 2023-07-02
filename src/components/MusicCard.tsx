@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { downloadImage, getDominantColor, getFaderColor } from "logic";
+import { downloadImage, getDominantColor } from "logic";
 import { musicType } from "types";
 
 import Image from "components/Image";
-import { useAppState } from "logic/StateContext/hooks";
+import { useAppState, useFaderColor } from "logic/StateContext/hooks";
 
 export default function MusicCard({ music }: { music: musicType }) {
-  const { color, setColor } = useAppState();
-  const colorsStr = color?.array.join(",") || "0,0,0";
+  const { setColor } = useAppState();
+  const colorsStr = useFaderColor();
   const previewRef = useRef<HTMLDivElement | null>(null);
   const [takeShot, setTakeShot] = useState(false);
 
@@ -35,7 +35,7 @@ export default function MusicCard({ music }: { music: musicType }) {
       initial={{ scale: 0 }}
       animate={{ scale: 1 }}
       className="w-10/12 md:w-2/4 text-white p-4 rounded-lg"
-      style={{ backgroundColor: getFaderColor(colorsStr, 25) }}
+      style={{ backgroundColor: colorsStr }}
     >
       <Image width="100%" src={music?.image} onLoad={handleOnLoad} />
       <div className="flex mt-4">

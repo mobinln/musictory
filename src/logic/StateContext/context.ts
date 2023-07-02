@@ -13,6 +13,8 @@ export const defaultValue = {
     text: "All I wanna ever say is, 'Are you mine?'",
   },
   setMusic: () => undefined,
+  takeShot: false,
+  setTakeShot: () => undefined,
 };
 
 const stateContext = createContext<{
@@ -20,6 +22,8 @@ const stateContext = createContext<{
   setColor: React.Dispatch<React.SetStateAction<colorType>>;
   music: musicType;
   setMusic: React.Dispatch<React.SetStateAction<musicType>>;
+  takeShot: boolean;
+  setTakeShot: React.Dispatch<React.SetStateAction<boolean>>;
 }>(defaultValue);
 
 export default stateContext;

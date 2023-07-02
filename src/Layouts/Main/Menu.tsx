@@ -2,7 +2,7 @@ import { styled } from "styled-components";
 import { BsFillHouseDoorFill, BsFillFilePersonFill, BsFillGearFill, BsFillCameraFill } from "react-icons/bs";
 import { Link, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { useFaderColor } from "logic/StateContext/hooks";
+import { useAppState, useFaderColor } from "logic/StateContext/hooks";
 
 const StyledIcon = styled.div`
   svg {
@@ -14,6 +14,7 @@ const StyledIcon = styled.div`
 
 export default function Menu() {
   const { pathname } = useLocation();
+  const { setTakeShot } = useAppState();
   const backgroundColor = useFaderColor();
   const iconColor = useFaderColor(60);
   const activeIconColor = useFaderColor(100);
@@ -61,6 +62,7 @@ export default function Menu() {
         {pathname === "/" && (
           <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}>
             <StyledIcon
+              onClick={() => setTakeShot(true)}
               style={{
                 fill: activeIconColor,
               }}
