@@ -30,6 +30,14 @@ export default function MusicCard({ music }: { music: musicType }) {
     return () => clearTimeout(t);
   }, [takeShot]);
 
+  if (music.layout === "player") {
+    return <></>;
+  }
+
+  if (music.layout === "gradient") {
+    return <></>;
+  }
+
   return (
     <motion.div
       initial={{ scale: 0 }}

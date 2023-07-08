@@ -5,7 +5,7 @@ import MusicCard from "components/MusicCard";
 import { useAppState } from "logic/StateContext/hooks";
 
 export default function HomePage() {
-  const { music, takeShot, setTakeShot } = useAppState();
+  const { music, takeShot, color, setTakeShot } = useAppState();
   const previewRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -21,6 +21,18 @@ export default function HomePage() {
 
     return () => clearTimeout(t);
   }, [setTakeShot, takeShot]);
+
+  if (takeShot) {
+    return (
+      <div
+        ref={previewRef}
+        className="relative z-10 h-screen w-screen flex justify-center items-center"
+        style={{ backgroundColor: color?.rgb, minHeight: "100vh" }}
+      >
+        <MusicCard music={music} />
+      </div>
+    );
+  }
 
   return (
     <div className="relative z-10 h-screen w-screen flex justify-center items-center" ref={previewRef}>

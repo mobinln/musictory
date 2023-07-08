@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.14",
+    "@heroicons/react": "^2.0.18",
     "colorthief": "^2.4.0",
     "framer-motion": "^10.12.18",
     "html2canvas": "^1.4.1",

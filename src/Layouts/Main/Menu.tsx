@@ -32,6 +32,18 @@ export default function Menu() {
           backgroundColor,
         }}
       >
+        {pathname === "/" && (
+          <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}>
+            <StyledIcon
+              onClick={() => setTakeShot(true)}
+              style={{
+                fill: activeIconColor,
+              }}
+            >
+              <BsFillCameraFill />
+            </StyledIcon>
+          </motion.div>
+        )}
         <Link to="/">
           <StyledIcon
             style={{
@@ -59,18 +71,6 @@ export default function Menu() {
             <BsFillFilePersonFill />
           </StyledIcon>
         </Link>
-        {pathname === "/" && (
-          <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}>
-            <StyledIcon
-              onClick={() => setTakeShot(true)}
-              style={{
-                fill: activeIconColor,
-              }}
-            >
-              <BsFillCameraFill />
-            </StyledIcon>
-          </motion.div>
-        )}
       </motion.div>
     </AnimatePresence>
   );
